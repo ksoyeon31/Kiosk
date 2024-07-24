@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자페이지</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<style>
+    @font-face {
+        font-family: 'BagelFatOne-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/BagelFatOne-Regular.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+@font-face {
+    font-family: 'GOSEONGGEUMGANGNURI';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404-2@1.0/GOSEONGGEUMGANGNURI.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'BagelFatOne-Regular';
+    overflow: auto;
+}
+
+form {
+    text-align: center;
+}
+
+#table {
+    text-align: center;
+}
+
+#title {
+    font-size: 50px;
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 20px;
+    /* 여백 추가 */
+    border-radius: 10px;
+    /* 모서리를 둥글게 */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    /* 그림자 효과 */
+    transition: transform 0.3s;
+    /* 호버 애니메이션 */
+}
+
+
+
+
+
+#menu td {
+    background-color: skyblue;
+    /* 배경색 변경 */
+    color: #333;
+    /* 글자색 변경 */
+    font-size: 20px;
+    /* 폰트 크기 변경 */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    /* 호버 애니메이션 */
+}
+
+#menu td:hover {
+    background-color: rgb(53, 163, 206);
+    /* 호버시 배경색 변경 */
+}
+
+
+
+
+td {
+    width: 25%;
+}
+
+td img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+#order {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-family: 'GOSEONGGEUMGANGNURI';
+}
+
+input {
+    font-family: 'GOSEONGGEUMGANGNURI';
+}
+
+input[type="button"],
+input[type="reset"] {
+    background-color: darkblue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+input[type="button"]:hover,
+input[type="reset"]:hover {
+    background-color: #001f4d;
+    /* 호버시 어두운 색으로 변경 */
+}
+
+textarea {
+    font-size: larger;
+}
+
+.beverage {
+    font-family: 'GOSEONGGEUMGANGNURI';
+    text-align: center;
+}
+
+.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.option-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.swal2-btn {
+    width: 70px;
+    height: 35px;
+    margin: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.swal2-btn.selected {
+    background-color: lightblue;
+    transform: scale(1.1);
+}
+
+.swal2-backdrop:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.swal2-popup .swal2-header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    border-bottom: none;
+}
+
+.swal2-popup .swal2-icon {
+    margin-top: 0;
+}
+
+.swal2-popup .swal2-title {
+    margin-top: 0;
+}
+
+.swal2-popup .swal2-content {
+    padding: 20px;
+}
+
+.swal2-popup .swal2-actions {
+    padding: 10px 20px;
+    justify-content: center;
+}
+
+.swal2-popup .swal2-actions .swal2-confirm {
+    margin: 0 8px;
+}
+
+.swal2-back-btn {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+
+}
+
+
+</style>
+
+
+<body>
+    <table border='1' id='table' width=100% cellspacing='0'>
+        <tr>
+            <th colspan='4' id='title'><a onClick="window.location.reload()">ByuRi coffee</a></th>
+        </tr>
+        <tr span id="menu">
+            <td id='m1' onclick="show('n1')">COFFEE</td>
+            <td id='m2' onclick="show('n2')">LATTE</td>
+            <td id='m3' onclick="show('n3')">HERB TEA</td>
+            <td id='m4' onclick="show('n4')">FRUIT TEA</td>
+        </tr>
+        <tr span id="menu">
+            <td id='m5' onclick="show('n5')">ADE</td>
+            <td id='m6' onclick="show('n6')">FRAPPE</td>
+            <td id='m7' onclick="show('n7')">SMOOTHIE</td>
+            <td id='m8' onclick="show('n8')">DESSERT</td>
+        </tr>
+    </table><br>
+
+    <element class="beverage">
+        <table border='1' id='n1' name='coffee' bordercolor='black' cellspacing='0' class="hidden">
+            <tr>
+                <td id='c1' onclick="add('c1')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20200607365216.png'
+                        width='100%'><br>1200원<br><b>에스프레소</b></td>
+                <td id='c2' onclick="add('c2')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20200607445430.png'
+                        width='100%'><br>1500원<br><b>아메리카노</b></td>
+                <td id='c3' onclick="add('c3')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20200607445430.png'
+                        width='100%'><br>1800원<br><b>헤이즐럿<br>아메리카노</b></td>
+                <td id='c4' onclick="add('c4')"><img src='http://www.caffebene.co.kr/uploads/product/20200607111992.png'
+                        width='100%'><br>2500원<br><b>바닐라 라떼</b></td>
+            </tr>
+            <tr>
+                <td id='c5' onclick="add('c5')"><img src='http://www.caffebene.co.kr/uploads/product/20200607111992.png'
+                        width='100%'><br>2200원<br><b>카페라떼</b></td>
+                <td id='c6' onclick="add('c6')"><img src='http://www.caffebene.co.kr/uploads/product/20200607498136.png'
+                        width='100%'><br>2800원<br><b>카라멜<br>마끼야또</b></td>
+                <td id='c7' onclick="add('c7')"><img src='http://www.caffebene.co.kr/uploads/product/20200607822666.png'
+                        width='100%'><br>2800원<br><b>카페모카</b></td>
+                <td id='c8' onclick="add('c8')"><img src='http://www.caffebene.co.kr/uploads/product/20200607111992.png'
+                        width='100%'><br>2500원<br><b>헤이즐럿 라떼</b></td>
+            </tr>
+        </table>
+    
+    
+        <table border='1' id='n2' name='coffee' bordercolor='black' cellspacing='0' class="hidden">
+            <tr>
+                <td id='c9' onclick="add('c9')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20200607111383.png'
+                        width='100%'><br>2700원<br><b>고구마라떼</b></td>
+                <td id='c10' onclick="add('c10')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200610893497.png'
+                        width='100%'><br>2700원<br><b>그린티라떼</b></td>
+                <td id='c11' onclick="add('c11')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200607935102.png'
+                        width='100%'><br>2700원<br><b>오곡라떼</b></td>
+                <td id='c12' onclick="add('c12')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20220304243069.png'
+                        width='100%'><br>2700원<br><b>초코라떼</b></td>
+            </tr>
+        </table>
+    
+    
+        <table border='1' id='n3' name='coffee' bordercolor='black' cellspacing='0' class="hidden">
+            <tr>
+                <td id='c13' onclick="add('c13')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20220315400366.png'
+                        width='100%'><br>1500원<br><b>자스민</b></td>
+                <td id='c14' onclick="add('c14')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200610288582.png'
+                        width='100%'><br>1500원<br><b>페퍼민트</b></td>
+                <td id='c15' onclick="add('c15')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20220315400366.png'
+                        width='100%'><br>1500원<br><b>캐모마일</b></td>
+                <td id='c16' onclick="add('c16')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20201119887500.png'
+                        width='100%'><br>1500원<br><b>히비스커스</b></td>
+            </tr>
+            <tr>
+                <td id='c17' onclick="add('c17')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20201119432583.png'
+                        width='100%'><br>1500원<br><b>레몬그라스</b></td>
+            </tr>
+        </table>
+    
+    
+        <table border='1' id='n4' name='coffee' bordercolor='black' cellspacing='0' class="hidden">
+            <tr>
+                <td id='c18' onclick="add('c18')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200610603726.png'
+                        width='100%'><br>2000원<br><b>유자티</b></td>
+                <td id='c19' onclick="add('c19')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20200610719777.png'
+                        width='100%'><br>2000원<br><b>자몽티</b></td>
+                <td id='c20' onclick="add('c20')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20201119432583.png'
+                        width='100%'><br>2000원<br><b>레몬티</b></td>
+                <td id='c21' class="icedonly" onclick="add('c21')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200610794548.png'
+                        width='100%'><br>2500원<br><b>복숭아<br>아이스티</b></td>
+            </tr>
+        </table>
+    
+    
+        <table border='1' id='n5' name='coffee' bordercolor='black' cellspacing='0' class="hidden">
+            <tr>
+                <td id='c22' class="icedonly" onclick="add('c22')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200614270060.png'
+                        width='100%'><br>2300원<br><b>자몽에이드</b></td>
+                <td id='c23' class="icedonly" onclick="add('c23')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200614802613.png'
+                        width='100%'><br>2300원<br><b>레몬에이드</b></td>
+                <td id='c24' class="icedonly" onclick="add('c24')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200614391379.png'
+                        width='100%'><br>2800원<br><b>청포도<br>에이드</b></td>
+                <td id='c25' class="icedonly" onclick="add('c25')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20210830249276.png'
+                        width='100%'><br>3000원<br><b>오아이스</b></td>
+            </tr>
+        </table>
+    
+    
+        <table border='1' id='n6' name='coffee' bordercolor='black' cellspacing='0' class="hidden">
+            <tr>
+                <td id='c26' class="icedonly" onclick="add('c26')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20220831726772.png'
+                        width='100%'><br>3500원<br><b>쿠키앤크림<br>프라페</b></td>
+                <td id='c28' class="icedonly" onclick="add('c28')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200610414609.png'
+                        width='100%'><br>3500원<br><b>그린티민트<br>초코프라페</b></td>
+                <td id='c27' class="icedonly" onclick="add('c27')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200614892628.png'
+                        width='100%'><br>3500원<br><b>자바칩<br>프라페</b></td>
+                <td></td>
+            </tr>
+        </table>
+    
+    
+        <table border='1' id='n7' name='coffee' bordercolor='black' cellspacing='0' class="hidden">
+            <tr>
+                <td id='c29' class="icedonly" onclick="add('c29')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20200610189199.png'
+                        width='100%'><br>3500원<br><b>요거트</b></td>
+                <td id='c30' class="icedonly" onclick="add('c30')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20220315689828.png'
+                        width='100%'><br>3500원<br><b>블루베리</b></td>
+                <td id='c31' class="icedonly" onclick="add('c31')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20200610228043.png'
+                        width='100%'><br>3500원<br><b>청포도</b></td>
+                <td id='c32' class="icedonly" onclick="add('c32')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20200617511281.png'
+                        width='100%'><br>3500원<br><b>망고</b></td>
+            </tr>
+            <tr>
+                <td id='c33' class="icedonly" onclick="add('c33')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20220315204095.png'
+                        width='100%'><br>3500원<br><b>딸기</b></td>
+            </tr>
+        </table>
+    
+    
+        <table border='1' id='n8' name='coffee' bordercolor='black' cellspacing='0' class="hidden">
+            <tr>
+                <td id='c34' class="dessert" onclick="add('c34')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20220520391961.png'
+                        width='100%'><br>1800원<br><b>마카롱</b></td>
+                <td id='c35' class="dessert" onclick="add('c35')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20230111235431.png'
+                        width='100%'><br>2000원<br><b>빵</b>
+                </td>
+                <td id='c36' class="dessert" onclick="add('c36')"><img
+                        src='http://www.caffebene.co.kr/uploads/product/20200614441796.png'
+                        width='100%'><br>1500원<br><b>쿠키</b>
+                </td>
+                <td id='c37' class="dessert" onclick="add('c37')"><img
+                        src='	http://www.caffebene.co.kr/uploads/product/20211020541897.png'
+                        width='100%'><br>2000원<br><b>에그타르트</b></td>
+            </tr>
+        </table>
+    </element><br><br>
+    
+
+    <form id="adminForm" name='form1' method='post'>
+        <input type='button' value='수정하기' onclick="change()">
+        <input type='button' value='품절/판매' onclick="soldout()">
+        <button><a href='./BRC.html'>돌아가기</a></button>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        var selectedItems = [];
+
+        function show(beverageID) {
+            var beverageMenus = document.querySelectorAll('.beverage table');
+            beverageMenus.forEach(menu => {
+                menu.classList.add('hidden');
+            });
+
+            var selectedMenu = document.getElementById(beverageID);
+            if (selectedMenu) {
+                selectedMenu.classList.remove('hidden');
+            }
+        }
+
+        function change() {
+            Swal.fire({
+                title: "수정하기",
+                html: `
+                    메뉴 ID: <input id="swal-input1" class="swal2-input">
+                    가격: <input id="swal-input2" class="swal2-input">
+                `,
+                focusConfirm: false,
+                preConfirm: () => {
+                    return {
+                        item_id: document.getElementById("swal-input1").value,
+                        new_price: document.getElementById("swal-input2").value
+                    };
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form = document.getElementById('adminForm');
+                    form.innerHTML += `
+                        <input type="hidden" name="action" value="change">
+                        <input type="hidden" name="item_id" value="${result.value.item_id}">
+                        <input type="hidden" name="new_price" value="${result.value.new_price}">
+                    `;
+                    form.submit();
+                }
+            });
+        }
+
+        function soldout() {
+            Swal.fire({
+                title: "품절/판매",
+                html: `
+                    메뉴 ID: <input id="swal-input1" class="swal2-input">
+                    상태: <select id="swal-input2" class="swal2-input">
+                        <option value="o">판매</option>
+                        <option value="x">품절</option>
+                    </select>
+                `,
+                focusConfirm: false,
+                preConfirm: () => {
+                    return {
+                        item_id: document.getElementById("swal-input1").value,
+                        new_status: document.getElementById("swal-input2").value
+                    };
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form = document.getElementById('adminForm');
+                    form.innerHTML += `
+                                                <input type="hidden" name="action" value="soldout">
+                        <input type="hidden" name="item_id" value="${result.value.item_id}">
+                        <input type="hidden" name="new_status" value="${result.value.new_status}">
+                    `;
+                    form.submit();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
