@@ -1,5 +1,6 @@
 # Kiosk
-# xampp control shell > mysql -uroot -p > kiosk 데이터베이스 생성 > menu 테이블 생성 
+## 1) Xampp Control Panel에서 Apache, MYSQL Start 
+## 2) xampp control shell > mysql -uroot -p > kiosk 데이터베이스 생성 > menu 테이블 생성 
 
 CREATE TABLE menu (
     ->     id VARCHAR(5) PRIMARY KEY,
@@ -53,6 +54,4 @@ INSERT INTO menu (id, name, price, available, category, image_url, quantity) VAL
 
 ![image](https://github.com/user-attachments/assets/14d3632b-0d91-480c-9669-03b4fdab48a3)
 
-Xampp Control Panel에서 Apache, MYSQL Start 
-
-http://localhost/ByuRiCoffee/Start.html 실행
+## 3) Start.html 실행
