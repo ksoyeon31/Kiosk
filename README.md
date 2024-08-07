@@ -1,5 +1,5 @@
 # Kiosk
-xampp control shell > mysql -uroot -p > kiosk 데이터베이스 생성 > menu 테이블 생성 
+# xampp control shell > mysql -uroot -p > kiosk 데이터베이스 생성 > menu 테이블 생성 
 
 CREATE TABLE menu (
     ->     id VARCHAR(5) PRIMARY KEY,
